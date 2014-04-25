@@ -43,11 +43,16 @@ module.exports = function (options) {
 				this.emit('error', new gutil.PluginError('gulp-imagemin:', err));
 			}
 
-			var saved = file.contents.length - data.contents.length;
-			var savedMsg = saved > 0 ? 'saved ' + prettyBytes(saved) : 'already optimized';
+      if (data) {
+        var saved = file.contents.length - data.contents.length;
+        var savedMsg = saved > 0 ? 'saved ' + prettyBytes(saved) : 'already optimized';
 
-			gutil.log('gulp-imagemin:', chalk.green('✔ ') + file.relative + chalk.gray(' (' + savedMsg + ')'));
+        gutil.log('gulp-imagemin:', chalk.green('✔ ') + file.relative + chalk.gray(' (' + savedMsg + ')'));
 
+			  file.contents = data.contents;
+      } else {
+			  gutil.log('gulp-imagemin:', chalk.red('✖') + file.relative + chalk.gray(' empty data '));
+      }
 			file.contents = data.contents;
 			this.push(file);
 			cb();
