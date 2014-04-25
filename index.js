@@ -53,7 +53,6 @@ module.exports = function (options) {
       } else {
 			  gutil.log('gulp-imagemin:', chalk.red('✖') + file.relative + chalk.gray(' empty data '));
       }
-			file.contents = data.contents;
 			this.push(file);
 			cb();
 		}.bind(this));
